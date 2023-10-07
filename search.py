@@ -147,41 +147,8 @@ def breadthFirstSearch(problem: SearchProblem):
                     fringe.push((next_state, next_actions))
     return []
    # util.raiseNotDefined()
-   
-def uniformCostSearch(problem:SearchProblem):
-    start=problem.getStartState()
-    node=PriorityQueue()
-    path=[]
-    visited=set([])  
-    print("The starting point is ",start)
-    node.put((0, (start, path)))
-    dict={}
-    while not node.empty():
-        _,(current,path)=node.get()
-        print("First node we get:",current)
-        if problem.isGoalState(current):
-           return path
-        else:
-         visited.add(current)
-         print("The current_node we add:",current)
-         successors=problem.getSuccessors(current)
-         print("Successors functions works",successors)
-         for state in successors:
-            next_state,action,cost=state
-            if next_state not in visited:
-                newcost=cost
-                if action == 'North' or action=='East':
-                   newcost=cost+2
-                elif action == 'South' or action=='West':
-                   newcost=cost+1
                 
-                print("There is new cost",newcost)
-                if next_state in dict:
-                   newcost+=dict[next_state][1]
-                new_path=path+ [action]
-                node.put((newcost,(next_state,new_path)))
-                
-def uniformCostSearch1(problem: SearchProblem):
+def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
     nodes = PriorityQueue()
@@ -218,6 +185,7 @@ def aStarSearch(problem: SearchProblem, heuristic=None):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
     print("There is A* start",problem.getStartState())
+    #this is not working yet but i'm still trying if anyone find the bug and fix it must share
     start_node=problem.getStartState()
     open_list=[]
     close_list=set([])
