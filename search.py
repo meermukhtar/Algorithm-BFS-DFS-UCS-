@@ -184,7 +184,7 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem: SearchProblem, heuristic=None):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    print("There is A* start",problem.getStartState())
+    print("There is A* start Algorithm start point:",problem.getStartState())
     #this is not working yet but i'm still trying if anyone find the bug and fix it must share
     start_node=problem.getStartState()
     open_list=[]
