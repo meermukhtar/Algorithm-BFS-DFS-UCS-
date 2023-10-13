@@ -208,6 +208,33 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                     h = heuristic(npath, problem)
                     f = g + h
                     open_set.append((nposition,npath, f))
+
+def greedySearch(problem, heuristic=nullHeuristic):
+    """Search the node that has the lowest combined cost and heuristic first."""
+    "*** YOUR CODE HERE ***"
+    print("Here is start of greedy algorithm value",problem.getStartState())
+    start=problem.getStartState()
+    open_set=[]
+    close_set=set([])
+    path=[]
+    open_set.append((start,path,heuristic(start, problem),0))
+    while open_set:
+        min_val=0
+        current_node=open_set.pop(min_val)
+        cposition=current_node[0]
+        path=current_node[1]
+        if problem.isGoalState(cposition):
+            return path
+        if cposition not in close_set:
+            close_set.add(cposition)
+            successor=problem.getSuccessors(cposition)
+            for state in successor:
+                if state[0] not in close_set:
+                    nposition=state[0]
+                    npath=path + [state[1]]
+                    h = heuristic(npath, problem)
+                    f=h
+                    open_set.append((nposition,npath, f))
 # Abbreviations
 bfs = breadthFirstSearch
 dfs = depthFirstSearch
