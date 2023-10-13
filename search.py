@@ -181,33 +181,33 @@ def nullHeuristic(state, problem=None):
 
 
 
-def aStarSearch(problem: SearchProblem, heuristic=None):
+def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    print("There is A* start Algorithm start point:",problem.getStartState())
-    #this is not working yet but i'm still trying if anyone find the bug and fix it must share
-    start_node=problem.getStartState()
-    open_list=[]
-    close_list=set([])
+    print("Here is start of astart algorithm value",problem.getStartState())
+    start=problem.getStartState()
+    open_set=[]
+    close_set=[]
     path=[]
-    heapq.heappush(open_list, (0, 0,start_node))
-    while (open_list):
-        _, current_g, current_node = heapq.heappop(open_list)
-        if problem.isGoalState(current_node):
+    open_set.append((start,path,0))
+    while open_set:
+        min_val=0
+        current_node=open_set.pop(min_val)
+        cposition=current_node[0]
+        path=current_node[1]
+        if problem.isGoalState(cposition):
             return path
-        close_list.add(current_node)
-        successors = problem.getSuccessors(current_node)
-        for successor, action, _ in successors:
-            state_g = current_g + 1 
-            state_h = heuristic(successor)
-            state_f = state_g + state_h
-            if successor not in close_list:
-                state_in_open_list = any(node[1] == successor for node in open_list)
-                    #print("Successor not in close list",state_in_open_list)
-            if not state_in_open_list or state_g < current_g:
-                heapq.heappush(open_list, (state_f, state_g, successor))
-                         
-    return []
+        if cposition not in close_set:
+            close_set.append(cposition)
+            successor=problem.getSuccessors(cposition)
+            for state in successor:
+                if state[0] not in close_set:
+                    nposition=state[0]
+                    npath=path + [state[1]]
+                    g = problem.getCostOfActions(npath)
+                    h = heuristic(npath, problem)
+                    f = g + h
+                    open_set.append((nposition,npath, f))
 # Abbreviations
 bfs = breadthFirstSearch
 dfs = depthFirstSearch
