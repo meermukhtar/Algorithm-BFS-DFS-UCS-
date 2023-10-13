@@ -187,9 +187,9 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     print("Here is start of astart algorithm value",problem.getStartState())
     start=problem.getStartState()
     open_set=[]
-    close_set=[]
+    close_set=set([])
     path=[]
-    open_set.append((start,path,0))
+    open_set.append((start,path,heuristic(start, problem),0))
     while open_set:
         min_val=0
         current_node=open_set.pop(min_val)
@@ -198,7 +198,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
         if problem.isGoalState(cposition):
             return path
         if cposition not in close_set:
-            close_set.append(cposition)
+            close_set.add(cposition)
             successor=problem.getSuccessors(cposition)
             for state in successor:
                 if state[0] not in close_set:
