@@ -28,7 +28,7 @@ class SearchProblem:
 
     You do not need to change anything in this class, ever.
     """
-
+#These algorithms for packman finding paths
     def getStartState(self):
         """
         Returns the start state for the search problem.
